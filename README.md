@@ -9,6 +9,12 @@
 
 ## Getting Started
 
+1. Clone this repo
+
+```
+   git clone git@github.com:instructa-pro/react-tanstack-starter.git
+```
+
 2. Install dependencies:
 
    ```bash
