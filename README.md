@@ -9,8 +9,6 @@
 
 ## Getting Started
 
-1. [Use this template](https://github.com/new?template_name=react-tanstarter&template_owner=dotnize) or clone this repository.
-
 2. Install dependencies:
 
    ```bash
