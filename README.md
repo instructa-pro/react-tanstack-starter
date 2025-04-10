@@ -67,7 +67,7 @@ These scripts in [package.json](./package.json#L5) use **pnpm** by default, but 
 
 Read the [hosting docs](https://tanstack.com/start/latest/docs/framework/react/hosting) for information on how to deploy your TanStack Start app.
 
-## Credist
+## Credits
 
 - [React TanStarter](https://github.com/dotnize/react-tanstarter)
 Based on this starter template
