@@ -1,0 +1,87 @@
+---
+description: 
+globs: src/**/*.tsx,src/**/*.css,src/**/*.ts
+alwaysApply: false
+---
+# shadcn/ui with Tailwind CSS v4 & React 19 Integration Guide
+
+Guidelines for using shadcn/ui with Tailwind CSS v4 and React 19, based on [shadcn/ui Docs](mdc:https:/ui.shadcn.com/docs/tailwind-v4).
+
+## Key Updates
+
+- **Project Init:** CLI supports Tailwind v4 & React 19 setup.
+- **Theme Directive:** Full support for `@theme inline` simplifies CSS variable management.
+- **Components:** Primitives use `data-slot` for styling; `forwardRef` removed.
+- **Utilities:** Uses `size-*` utility (Tailwind v3.4+).
+- **Deprecations:** `toast` replaced by `sonner`; default style is `new-york`; HSL colors use OKLCH.
+- ([Docs: What's New](mdc:https:/ui.shadcn.com/docs/tailwind-v4#whats-new))
+
+## CSS Variables for tailwind v4
+- Move `:root` and `.dark` custom properties outside `@layer base`.
+- Wrap color values in `hsl()` (e.g., `--background: hsl(0 0% 100%);`).
+- Use `@theme inline` to reference variables directly (e.g., `--color-background: var(--background);`).
+
+Example:
+```css
+/* Before */
+@layer base {
+  :root { --background: 0 0% 100%; }
+}
+
+/* After */
+:root { --background: hsl(0 0% 100%); }
+.dark { --background: hsl(0 0% 3.9%); }
+
+@theme inline {
+  --color-background: var(--background);
+  /* ... other variables */
+}
+```
+([Docs](mdc:https:/ui.shadcn.com/docs/tailwind-v4#2-update-your-css-variables))
+
+### 3. Update Chart Colors
+Remove `hsl()` wrapper in chart configs:
+Change `color: "hsl(var(--chart-1))"` to `color: "var(--chart-1)"`.
+([Docs](mdc:https:/ui.shadcn.com/docs/tailwind-v4#3-update-colors-for-charts))
+
+### 4. Use `size-*` Utility
+Replace `w-4 h-4` with `size-4`.
+([Docs](mdc:https:/ui.shadcn.com/docs/tailwind-v4#4-use-new-size-utility))
+
+### 5. Update Dependencies
+Run: `pnpm up "@radix-ui/*" cmdk lucide-react recharts tailwind-merge clsx --latest`
+([Docs](mdc:https:/ui.shadcn.com/docs/tailwind-v4#5-update-your-dependencies))
+
+### 6. Remove `forwardRef` Usage
+Replace `React.forwardRef` with component props and use `data-slot`.
+- Use [remove-forward-ref codemod](mdc:https:/github.com/reactjs/react-codemod#remove-forward-ref) or migrate manually:
+  1. Replace `React.forwardRef<...>` with `React.ComponentProps<...>`.
+  2. Remove `ref={ref}`.
+  3. Add `data-slot` attribute.
+  4. Optional: Use named functions, remove `displayName`.
+
+Example:
+```jsx
+// Before
+const AccordionItem = React.forwardRef<...>(({ className, ...props }, ref) => (
+  <AccordionPrimitive.Item ref={ref} className={cn("border-b", className)} {...props} />
+));
+AccordionItem.displayName = "AccordionItem";
+
+// After
+function AccordionItem({ className, ...props }: React.ComponentProps<typeof AccordionPrimitive.Item>) {
+  return (
+    <AccordionPrimitive.Item data-slot="accordion-item" className={cn("border-b", className)} {...props} />
+  );
+}
+```
+([Docs](mdc:https:/ui.shadcn.com/docs/tailwind-v4#6-remove-forwardref))
+
+## Conclusion
+
+Integrating shadcn/ui with Tailwind v4 & React 19 modernizes styling with cleaner CSS (`@theme inline`), consolidated utilities (`size-*`), and simpler components (no `forwardRef`). Follow these guidelines for a smooth transition.
+
+## References
+
+- [shadcn/ui Tailwind v4 Docs](mdc:https:/ui.shadcn.com/docs/tailwind-v4)
+- [Tailwind CSS Upgrade Guide](mdc:https:/tailwindcss.com/docs/upgrade-guide)

@@ -1,0 +1,3 @@
+optimize @rule-shadcn-tailwind.md file with the following:
+
+we want to save tokens meaning that we need to remove unnecessary formatting, no fluff, keep explanations to a minimum but dont remove any necessary information, remove redundant information. also keep code examples to a minimum

@@ -1,76 +1,78 @@
-
 # 🏝️ TanStack Starter Template + MCP
 
-- [React 19](https://react.dev) + [React Compiler](https://react.dev/learn/react-compiler)
-- TanStack [Start](https://tanstack.com/start/latest) + [Router](https://tanstack.com/router/latest) + [Query](https://tanstack.com/query/latest)
-- [Tailwind CSS v4](https://tailwindcss.com/) + [shadcn/ui](https://ui.shadcn.com/)
-- [Drizzle ORM](https://orm.drizzle.team/) + PostgreSQL
-- [Better Auth](https://www.better-auth.com/)
+# Example MCP Project
 
-## Getting Started
+# Prerequisites
 
-1. Clone this repo
+https://nodejs.org/en
 
+https://www.cursor.com/
+
+https://www.docker.com/products/docker-desktop/
+
+https://pnpm.io/installation
+
+<aside>
+<img src="https://www.notion.so/icons/info-alternate_blue.svg" alt="https://www.notion.so/icons/info-alternate_blue.svg" width="40px" />
+
+Start Docker Desktop!
+
+</aside>
+
+# 1. Install the starter
+
+```markdown
+git clone git@github.com:instructa-pro/react-tanstack-starter.git
 ```
-   git clone git@github.com:instructa-pro/react-tanstack-starter.git
+
+```markdown
+pnpm install
 ```
 
-2. Install dependencies:
+# 2. Get Client Secrets & Add Credentials
 
-   ```bash
-   pnpm install # npm install
-   ```
+| Github Client Secret | [https://github.com/settings/applications/new](https://github.com/settings/applications/new) |
+| --- | --- |
 
-3. Create a `.env` file based on [`.env.example`](./.env.example).
+Copy `.env.example` to `.env`
 
-4. Push the schema to your database with drizzle-kit:
+1. Generate Github Client Secret → `GITHUB_CLIENT_ID` & `GITHUB_CLIENT_SECRET`
+2. Generate a Better Auth Secret: [`https://www.better-auth.com/docs/installation`](https://www.better-auth.com/docs/installation)
 
-   ```bash
-   pnpm db push # npm run db push
-   ```
+Add this to `.env`
 
-   https://orm.drizzle.team/docs/migrations
+```markdown
+VITE_BASE_URL=http://localhost:3000
 
-5. Run the development server:
+DATABASE_URL="postgresql://user:password@localhost:5432/tanstarter"
+BETTER_AUTH_SECRET=<INSERT HERE>
+GITHUB_CLIENT_ID=<INSERT HERE>
+GITHUB_CLIENT_SECRET=<INSERT HERE>
+```
 
-   ```bash
-   pnpm dev # npm run dev
-   ```
+# 3. Start Container and initialize DB
 
-   The development server should be now running at [http://localhost:3000](http://localhost:3000).
+```markdown
+pnpm db push
+```
 
-## Issue watchlist
+# 4. Docker Compose Up
 
-- [React Compiler docs](https://react.dev/learn/react-compiler), [Working Group](https://github.com/reactwg/react-compiler/discussions) - React Compiler is still in beta. You can disable it in [app.config.ts](./app.config.ts#L15) if you prefer.
-- https://github.com/TanStack/router/discussions/2863 - TanStack Start is currently in beta and may still undergo major changes.
+```markdown
+docker compose up
+```
 
-## Auth
+# 5. Start the dev server
 
-Better Auth is currently configured for OAuth with GitHub, Google, and Discord, but can be easily modified to use other providers.
+```markdown
+pnpm dev
+```
 
-If you want to use email/password authentication or change providers, update the [auth config](./src/lib/server/auth.ts#L36) and [signin page](./src/routes/signin.tsx) with your own UI. You can use [shadcn/ui login blocks](https://ui.shadcn.com/blocks/login) as a starting point.
+# MCP Servers
 
-## Goodies
-
-#### Scripts
-
-These scripts in [package.json](./package.json#L5) use **pnpm** by default, but you can modify them to use your preferred package manager.
-
-- **`auth:generate`** - Regenerate the [auth db schema](./src/lib/server/schema/auth.schema.ts) if you've made changes to your Better Auth [config](./src/lib/server/auth.ts).
-- **`db`** - Run drizzle-kit commands. (e.g. `pnpm db generate` to generate a migration)
-- **`ui`** - The shadcn/ui CLI. (e.g. `pnpm ui add button` to add the button component)
-- **`format`** and **`lint`** - Run Prettier and ESLint.
-- **`deps`** - Selectively upgrade dependencies via npm-check-updates.
-
-## Building for production
-
-Read the [hosting docs](https://tanstack.com/start/latest/docs/framework/react/hosting) for information on how to deploy your TanStack Start app.
-
-## Credits
-
-- [React TanStarter](https://github.com/dotnize/react-tanstarter)
-Based on this starter template
-
-- [nekochan0122/tanstack-boilerplate](https://github.com/nekochan0122/tanstack-boilerplate) - A batteries-included TanStack Start boilerplate that inspired some patterns in this template. If you're looking for a more feature-rich starter, check it out!
-- [AlexGaudon/tanstarter-better-auth](https://github.com/AlexGaudon/tanstarter-better-auth) for his own better-auth implementation.
-# react-tanstack-starter
+```markdown
+MCP Servers
+https://github.com/mendableai/firecrawl-mcp-server
+https://github.com/modelcontextprotocol/servers/tree/main/src/postgres
+https://github.com/AgentDeskAI/browser-tools-mcp
+```

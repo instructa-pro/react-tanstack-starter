@@ -7,6 +7,13 @@
         "@modelcontextprotocol/server-postgres",
         "postgresql://user:password@localhost:5432/tanstarter"
       ]
+    },
+    "firecrawl-mcp": {
+      "command": "npx",
+      "args": ["-y", "firecrawl-mcp"],
+      "env": {
+        "FIRECRAWL_API_KEY": "<INSERT_HERE>"
+      }
     }
   }
 }
